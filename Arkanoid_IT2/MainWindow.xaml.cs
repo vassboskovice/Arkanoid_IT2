@@ -22,7 +22,7 @@ namespace Arkanoid_IT2
  public partial class MainWindow : Window
  {
   private Game game;
-  private DispatcherTimer timer;
+  private DispatcherTimer timerGUI;
 
   public MainWindow()
   {
@@ -65,14 +65,15 @@ namespace Arkanoid_IT2
   private void Window_Loaded(object sender, RoutedEventArgs e)
   {
    game = new Game();
-   timer = new DispatcherTimer();
-   timer.Interval = TimeSpan.FromMilliseconds(30);
-   timer.Tick += Timer_Tick;
-   timer.Start();
+   timerGUI = new DispatcherTimer();
+   timerGUI.Interval = TimeSpan.FromMilliseconds(30);
+   timerGUI.Tick += Timer_Tick;
+   timerGUI.Start();
   }
 
   private void Timer_Tick(object? sender, EventArgs e)
   {
+   game.Move(new Rectangle() { Width = GameCanvas.ActualWidth, Height = GameCanvas.ActualHeight });
    GameCanvas.Children.Clear(); 
    game.Draw(GameCanvas);
   }
